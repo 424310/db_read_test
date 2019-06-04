@@ -30,8 +30,8 @@ public class FirebaseDatabaseHelper111 {
         //UserId = mAuth.getCurrentUser().getDisplayName();
         UserId = "서민지";
         database = FirebaseDatabase.getInstance();
-        databaseRef = database.getReference("Category");
-        myRef = databaseRef.child("Users").child(UserId);
+        databaseRef = database.getReference(UserId);
+        myRef = databaseRef.child("Category");
     }
 
     public void readCategories(final DataStatus dataStatus){

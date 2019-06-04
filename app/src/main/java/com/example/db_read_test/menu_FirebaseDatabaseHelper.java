@@ -31,9 +31,10 @@ public class menu_FirebaseDatabaseHelper {
         UserId = "서민지";
         //카테고리 이름은 어떻게 가져와야할까?
         name = "갯마을칼국수";
+
         database = FirebaseDatabase.getInstance();
-        databaseRef = database.getReference("Menu");
-        myRef = databaseRef.child("Users").child(UserId).child(name);
+        databaseRef = database.getReference(UserId);
+        myRef = databaseRef.child("Menu").child(name);
     }
 
     public void readMenus(final DataStatus dataStatus){
