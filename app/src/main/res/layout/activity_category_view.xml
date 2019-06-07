@@ -36,10 +36,16 @@
 
 
         <Button
-            android:id="@+id/menu_open_close"
+            android:id="@+id/menu_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메뉴판 열기/접기" />
+            android:text="메뉴판 열기" />
+
+        <Button
+            android:id="@+id/menu_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메뉴판 접기" />
 
 
         <android.support.v7.widget.RecyclerView

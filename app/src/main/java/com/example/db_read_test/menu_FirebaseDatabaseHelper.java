@@ -2,6 +2,7 @@ package com.example.db_read_test;
 
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,8 +30,9 @@ public class menu_FirebaseDatabaseHelper {
         //mAuth = FirebaseAuth.getInstance();
         //UserId = mAuth.getCurrentUser().getDisplayName();
         UserId = "서민지";
-        //카테고리 이름은 어떻게 가져와야할까?
-        name = "갯마을칼국수";
+        //카테고리 이름은 어떻게 가져와야할까? 이렇게? OK!!
+        CategoryView categoryView = new CategoryView();
+        name = categoryView.getCategoryView();
 
         database = FirebaseDatabase.getInstance();
         databaseRef = database.getReference(UserId);
@@ -54,6 +56,24 @@ public class menu_FirebaseDatabaseHelper {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public void updateMunu(String key, Menu menu, final DataStatus dataStatus){
+        myRef.child(key).setValue(menu).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsUpdated();
+            }
+        });
+    }
+
+    public void deleteMunu(String key, final DataStatus dataStatus){
+        myRef.child(key).setValue(null).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsDeleted();
             }
         });
     }

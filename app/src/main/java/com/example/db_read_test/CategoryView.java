@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,7 +15,18 @@ public class CategoryView extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private TextView textView1, textView2, textView3;
-    public String Name, Address, Number;
+    public String Address, Number;
+    public Button menu_open, menu_close;
+
+    public static String Name = "name";
+
+    public CategoryView() {
+
+    }
+
+    public String getCategoryView() {
+        return Name;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,5 +70,23 @@ public class CategoryView extends AppCompatActivity {
             }
         });
 
+        menu_open = (Button) findViewById(R.id.menu_open);
+        menu_close = (Button) findViewById(R.id.menu_close);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.menu_open) {
+                    //menu_open를 클릭하게 되면, mRecyclerView는 VISIBLE로 set함으로써 보이게 됨
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                } else if (v.getId() == R.id.menu_close) {
+                    //menu_close를 클릭하게 되면, mRecyclerView는 GONE으로 set함으로써 안 보이게 됨(공간도 차지X)
+                    mRecyclerView.setVisibility(View.GONE);
+                }
+            }
+        };
+        menu_open.setOnClickListener(listener);
+        menu_close.setOnClickListener(listener);
     }
 }

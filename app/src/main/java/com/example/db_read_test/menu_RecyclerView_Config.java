@@ -22,10 +22,8 @@ public class menu_RecyclerView_Config {
         recyclerView.setAdapter(mMenusAdapter);
     }
 
-    //뷰홀더 BookItemView
+    //뷰홀더 MenuItemView
     class MenuItemView extends RecyclerView.ViewHolder{
-        //onclick 위해 추가한 코드
-        public final View mView;
 
         private TextView mMenu_name;
         private TextView mMenu_price;
@@ -36,12 +34,24 @@ public class menu_RecyclerView_Config {
         public MenuItemView(ViewGroup parent){
             super(LayoutInflater.from(mContext).inflate(R.layout.menu_list_item, parent, false));
 
-            //onclick 위해 추가한 코드
-            mView = itemView;
-
             mMenu_name= (TextView) itemView.findViewById(R.id.menu_name_txtView);
             mMenu_price = (TextView) itemView.findViewById(R.id.menu_price_txtView);
             mMenu_comment = (TextView) itemView.findViewById(R.id.menu_comment_txtView);
+
+            //here it is simply write onItemClick listener here
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =  new Intent(mContext, MenuUpdateDelete.class);
+
+                    intent.putExtra("key", key);
+                    intent.putExtra("Menu_name", mMenu_name.getText().toString());
+                    intent.putExtra("Menu_price",  mMenu_price.getText().toString());
+                    intent.putExtra("Menu_comment", mMenu_comment.getText().toString());
+
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         public void bind(Menu menu, String key){
@@ -72,24 +82,8 @@ public class menu_RecyclerView_Config {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MenuItemView bookItemView, final int i) {
-            bookItemView.bind(mMenuList.get(i), mKeys.get(i));
-
-            //here it is simply write onItemClick listener here
-            bookItemView.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Context context = v.getContext();
-                    Intent intent =  new Intent(context, Test.class);
-
-                    intent.putExtra("n", mMenuList.get(i).getMenu_name());
-                    intent.putExtra("p",  mMenuList.get(i).getMenu_price());
-                    intent.putExtra("c",  mMenuList.get(i).getMenu_comment());
-
-                    context.startActivity(intent);
-                }
-            });
+        public void onBindViewHolder(@NonNull MenuItemView menuItemView, int i) {
+            menuItemView.bind(mMenuList.get(i), mKeys.get(i));
         }
 
         @Override
